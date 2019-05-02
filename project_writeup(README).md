@@ -48,7 +48,10 @@ The code for this step is contained in the second code cell of the IPython noteb
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection. Most of the example code for this can found in the course.
 
 I then used the output `objpoints` and `imgpoints`(corners) to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
+Distorted:
 ![alt text][image0 ]
+
+Undistorted:
 ![alt text][image1 ]
 
 ### Pipeline (single images)
@@ -105,7 +108,7 @@ One major change which I did was to change the 'margin' paramter from 100 to 50 
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I have a function `poly_rl_coeff()` which is called by the functions from the previous section to calculate the radius of curvature of the lanes, I also return col(Centre of lane) from those function and use it calculate relative position of the vehicle with respect to centre of the lane.
+I have a function `poly_rl_coeff()` which is called by the functions from the previous section to calculate the radius of curvature of the lanes, I also return col(Centre of lane) from those function and use it calculate relative position of the vehicle with respect to centre of the lane. Position is calculated as per the bottom part of projected line(closest to camera).
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
@@ -127,6 +130,11 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Perfonally, I feel I could have written code in a cleaner way to avoid some of the troubles as at one points there were too many function and variables calling each other that I lost track of which variable and function signifies what. Initially I had faced an issue that one of plotted lanes were curving off from the original track, due to noise in the image. This was corrected using a smalled margin. 
+Personally, I feel I could have written code in a cleaner way to avoid some of the troubles as at one points there were too many function and variables calling each other that I lost track of which variable and function signifies what. Initially I had faced an issue that one of plotted lanes were curving off from the original track, due to noise in the image. This was corrected using a smalled margin. 
+
 From the challenge video I found that sometimes, some other lines other than the lane lines could have more pixels in the histogram and hence might get detected as the original lane.
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+
+For calculating the position of vehicle I used the left and right lanes points from historgram and then the bottom most points for the plotted lines.Sometimes the curvature might not be accurately detected as I haven't done any Sanity Check
+
+Also sometimes the detections might not be accurate, so it is good to keep a history and take an approximate decision.
+Since this is a complicated architecture, I feel that robust sanity checks are important though the result on project_video is workable.
