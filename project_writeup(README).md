@@ -20,11 +20,11 @@ The goals / steps of this project are the following:
 
 [image0]: ./camera_cal/calibration1.jpg "Original"
 [image1]: ./output_images/camera_calibrate_calibration1.jpg "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
+[image2]: ./test_images/test6.jpg "Road Transformed"
+[image3]: ./output_images/threshold_binary_test6.png "Binary Example"
+[image4]: ./output_images/perspective_binary_test6.jpg "Warp Example"
+[image5]: ./output_images/lane_pixels&boundary_test6.png "Fit Visual"
+[image6]: ./output_images/lane_boundary_on_original_test6.png "Output"
 [video1]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -48,8 +48,8 @@ The code for this step is contained in the second code cell of the IPython noteb
 I start by preparing "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection. Most of the example code for this can found in the course.
 
 I then used the output `objpoints` and `imgpoints`(corners) to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
-![alt text][image0 | width=100]
-![alt text][image1 | width=100]
+![alt text][image0 ]
+![alt text][image1 ]
 
 ### Pipeline (single images)
 
